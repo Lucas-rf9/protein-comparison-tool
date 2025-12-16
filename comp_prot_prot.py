@@ -2,7 +2,7 @@ import argparse
 #lib qui permet d'utiliser le code en ligne de commandes
 
 
-#Partie 1: lecture du fichier fasta
+#Lecture du fichier fasta
 def extraire_prot_fasta(fichier_fasta):
     #on lit un fichier fasta ligne par ligne et on récupère les séquences de protéines
     proteines = {}
@@ -24,7 +24,7 @@ def extraire_prot_fasta(fichier_fasta):
     return proteines
 
 
-#Partie 2: création du dictionnaire de k-mers
+#Création du dictionnaire de k-mers
 def seq_to_kmers(sequence_prot, k):
     #la fonction prend une séquence protéique et un entier k comme arguments
     #elle retourne un dict contenant tous les k-mers trouvés + leur nb d'occurrences
@@ -43,7 +43,7 @@ def seq_to_kmers(sequence_prot, k):
     return dict_kmers
 
 
-#Partie 3: calcul de la proportion de k-mers uniques
+#Calcul de la proportion de k-mers uniques
 def proportion_kmers_uniques(dict_seq_A, dict_seq_B):
     #on convertit les clés, kmers, en ensembles cad on retire les doublons de clés et on regarde si ils ont des clés en commun
     ensemble_A = set(dict_seq_A.keys())
@@ -59,7 +59,7 @@ def proportion_kmers_uniques(dict_seq_A, dict_seq_B):
     return kmers_commun / denominateur
 
 
-#Partie 4: calcul de la proportion de kmers totaux 
+#Calcul de la proportion de kmers totaux 
 def proportion_kmers_commun(dict_A, dict_B):
     #on veut savoir quelle est la proportion de kmers en commun de deux seq
     #en prenant en compte le nb total, avec les doublons
@@ -83,7 +83,7 @@ def proportion_kmers_commun(dict_A, dict_B):
     return proportion
 
 
-#Partie 5: comparaison de la seq requête avec toutes les seq de la banque
+#Comparaison de la seq requête avec toutes les seq de la banque
 def comparaison_sequences(proteines, id_requete, k):
     #on transforme la seq requête en dict de kmers
     kmers_requete = seq_to_kmers(proteines[id_requete], k)
@@ -141,7 +141,7 @@ def comparaison_sequences(proteines, id_requete, k):
     return resultats
 
 
-#Partie 6: écriture du fichier de résultats
+#Ecriture du fichier de résultats
 def ecriture_fichier_compte(liste_resultats, nom_fichier):
     #on crée un fichier texte tabulé avec les résultats de la comparaison
     with open(nom_fichier, "w") as f:
@@ -157,7 +157,7 @@ def ecriture_fichier_compte(liste_resultats, nom_fichier):
                     str(dico["prop_kmers_uniques"]) + "\n")
 
 
-#Partie 7: écriture des kmers de la requête
+#Ecriture des kmers de la requête
 def ecriture_kmers_requete(dict_kmers_requete, nom_fichier):
     #on veut enregistrer tous les kmers trouvés dans la requête
     #en utilisant leur nombre d’occurrences, triés du plus fréquent au moins fréquent
@@ -179,7 +179,7 @@ def ecriture_kmers_requete(dict_kmers_requete, nom_fichier):
             f.write(kmer + "\t" + str(nb) + "\n")
 
 
-#Partie 8: affichage d’un petit résumé en console
+#Affichage d’un petit résumé en console
 def afficher_resume(id_requete, dict_kmers_requete, liste_resultats):
     #on affiche combien de k-mers uniques contient la requête
     nb_uniques = len(set(dict_kmers_requete.keys()))
